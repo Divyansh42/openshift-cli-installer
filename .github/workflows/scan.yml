@@ -16,8 +16,7 @@ jobs:
           node-version: '14'
 
       - run: |
-          mkdir -p site-dir
-          npm install site-dir
+          npm install
 
       # - name: Install CRDA
       #   uses: redhat-actions/openshift-tools-installer@v1
@@ -37,7 +36,7 @@ jobs:
         with:
           manifest-file-path: package.json
           output-file-path: redhat-codeready-dependency-analysis-report.json
-          pkg-installation-directory-path: site-dir
+          pkg-installation-directory-path: .
         env:
           CRDA_KEY: ${{ secrets.CRDA_KEY }}
 
