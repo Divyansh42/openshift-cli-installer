@@ -10,20 +10,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: tektoncd/community
+          repository: golang/example
 
       # - name: Install npm
       #   uses: actions/setup-node@v2
       #   with:
       #     node-version: '14'
 
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.7'
-      # - name: Setup Go
-      #   uses: actions/setup-go@v2
+      # - uses: actions/setup-python@v2
       #   with:
-      #     go-version: '^1.13.1'
+      #     python-version: '3.7'
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '^1.13.1'
+
       # - run: |
       #     npm install
 
@@ -34,19 +35,17 @@ jobs:
           github_pat: ${{ github.token }}
           crda: "latest"
 
-      - name: setup
-        run: |
-          mkdir -p site-dir
-          pip3 install --target=site-dir -r teps/tools/requirements.txt
-          cat teps/tools/requirements.txt
+      # - name: setup
+      #   run: |
+      #     mkdir -p site-dir
+      #     pip3 install --target=site-dir -r teps/tools/requirements.txt
+      #     cat teps/tools/requirements.txt
 
       - name: Run CRDA scan
         run: |
-          cat teps/tools/requirements.txt
-          export PYTHONPATH=site-dir
           crda config set consent_telemetry true
           crda auth -t ${{ secrets.SNYK_TOKEN }}
-          crda analyse -j --verbose teps/tools/requirements.txt > crda.json
+          crda analyse -j --verbose go.mod > crda.json
 
       # - name: redhat-codeready-dependency-analysis
       #   uses: fabric8-analytics/gh-actions/python-3.6@main
