@@ -43,6 +43,7 @@ jobs:
 
       - name: Run CRDA scan
         run: |
+          go mod vendor
           crda config set consent_telemetry true
           crda auth -t ${{ secrets.SNYK_TOKEN }}
           crda analyse -j --verbose go.mod > crda.json
