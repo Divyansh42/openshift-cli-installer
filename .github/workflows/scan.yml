@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: go-project-example
+          repository: albertwidi/go-project-example
 
       # - name: Install npm
       #   uses: actions/setup-node@v2
