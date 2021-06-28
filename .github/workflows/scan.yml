@@ -34,9 +34,16 @@ jobs:
           github_pat: ${{ github.token }}
           crda: "latest"
 
+      - name: setup
+        run: |
+          mkdir -p site-dir
+          pip3 install --target=site-dir -r teps/tools/requirements.txt
+          cat teps/tools/requirements.txt
+
       - name: Run CRDA scan
         run: |
-          rm -rf vendor
+          cat teps/tools/requirements.txt
+          export PYTHONPATH=site-dir
           crda config set consent_telemetry true
           crda auth -t ${{ secrets.SNYK_TOKEN }}
           crda analyse -j --verbose teps/tools/requirements.txt > crda.json
