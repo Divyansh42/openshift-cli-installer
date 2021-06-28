@@ -9,12 +9,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Install npm
-        uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          repository: tektoncd/cli
 
+      # - name: Install npm
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '14'
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '^1.13.1'
       # - run: |
       #     npm install
 
@@ -27,9 +33,10 @@ jobs:
 
       - name: Run CRDA scan
         run: |
+          rm -rf vendor
           crda config set consent_telemetry true
           crda auth -t ${{ secrets.SNYK_TOKEN }}
-          crda analyse -j --verbose package.json > crda.json
+          crda analyse -j --verbose go.mod > crda.json
 
       # - name: redhat-codeready-dependency-analysis
       #   uses: fabric8-analytics/gh-actions/python-3.6@main
