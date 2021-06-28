@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: golang/example
+          repository: go-project-example
 
       # - name: Install npm
       #   uses: actions/setup-node@v2
@@ -43,7 +43,6 @@ jobs:
 
       - name: Run CRDA scan
         run: |
-          go mod vendor
           crda config set consent_telemetry true
           crda auth -t ${{ secrets.SNYK_TOKEN }}
           crda analyse -j --verbose go.mod > crda.json
