@@ -15,30 +15,30 @@ jobs:
         with:
           node-version: '14'
 
-      - run: |
-          npm install
+      # - run: |
+      #     npm install
 
-      # - name: Install CRDA
-      #   uses: redhat-actions/openshift-tools-installer@v1
-      #   with:
-      #     source: github
-      #     github_pat: ${{ github.token }}
-      #     crda: "latest"
-
-      # - name: Run CRDA scan
-      #   run: |
-      #     crda config set consent_telemetry true
-      #     crda auth -t ${{ secrets.SNYK_TOKEN }}
-      #     crda analyse -j --verbose package.json > crda.json
-
-      - name: redhat-codeready-dependency-analysis
-        uses: fabric8-analytics/gh-actions/python-3.6@main
+      - name: Install CRDA
+        uses: redhat-actions/openshift-tools-installer@v1
         with:
-          manifest-file-path: package.json
-          output-file-path: redhat-codeready-dependency-analysis-report.json
-          pkg-installation-directory-path: .
-        env:
-          CRDA_KEY: ${{ secrets.CRDA_KEY }}
+          source: github
+          github_pat: ${{ github.token }}
+          crda: "latest"
+
+      - name: Run CRDA scan
+        run: |
+          crda config set consent_telemetry true
+          crda auth -t ${{ secrets.SNYK_TOKEN }}
+          crda analyse -j --verbose package.json > crda.json
+
+      # - name: redhat-codeready-dependency-analysis
+      #   uses: fabric8-analytics/gh-actions/python-3.6@main
+      #   with:
+      #     manifest-file-path: package.json
+      #     output-file-path: redhat-codeready-dependency-analysis-report.json
+      #     pkg-installation-directory-path: .
+      #   env:
+      #     CRDA_KEY: ${{ secrets.CRDA_KEY }}
 
       - name: cat report
         run: cat crda.json
