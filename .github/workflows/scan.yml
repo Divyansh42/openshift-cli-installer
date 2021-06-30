@@ -34,7 +34,7 @@ jobs:
       #     npm install
 
       - run: |
-          mvn -Dmaven.repo.local=maven-dir clean install
+          mvn -Dmaven.repo.local=maven-dir -ntp -B package
 
       - name: Install CRDA
         uses: redhat-actions/openshift-tools-installer@v1
@@ -52,7 +52,7 @@ jobs:
           pwd
           ls -a
           cd maven-dir
-    
+
       - name: Run CRDA scan
         run: |
           crda config set consent_telemetry true
