@@ -48,10 +48,10 @@ jobs:
       #     mkdir -p site-dir
       #     pip3 install --target=site-dir -r teps/tools/requirements.txt
       #     cat teps/tools/requirements.txt
-      - run: |
-          pwd
-          ls -a
-          cd maven-dir
+      # - run: |
+      #     pwd
+      #     ls -a
+      #     cd maven-dir
 
       - name: Run CRDA scan
         run: |
