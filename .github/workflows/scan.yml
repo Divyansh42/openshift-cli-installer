@@ -34,7 +34,7 @@ jobs:
       #     npm install
 
       - run: |
-          mvn -Dmaven.repo.local=./deps -ntp -B package
+          mvn -ntp -B package
 
       - name: Install CRDA
         uses: redhat-actions/openshift-tools-installer@v1
