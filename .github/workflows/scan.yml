@@ -34,7 +34,7 @@ jobs:
       #     npm install
 
       - run: |
-          mvn -ntp -B package
+          mvn -Dmaven.repo.local=$GITHUB_WORKSPACE/deps -ntp -B package
 
       - name: Install CRDA
         uses: redhat-actions/openshift-tools-installer@v1
@@ -58,7 +58,7 @@ jobs:
           export MAVEN_PATH=deps
           crda config set consent_telemetry true
           crda auth -t ${{ secrets.SNYK_TOKEN }}
-          crda analyse -j --verbose pom.xml > crda.json
+          crda analyse -j --verbose pom.xml > crda.json || echo true
 
       # - name: redhat-codeready-dependency-analysis
       #   uses: fabric8-analytics/gh-actions/python-3.6@main
