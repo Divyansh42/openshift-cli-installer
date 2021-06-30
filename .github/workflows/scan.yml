@@ -34,7 +34,7 @@ jobs:
       #     npm install
 
       - run: |
-          mvn -Dmaven.repo.local=$GITHUB_WORKSPACE/deps -ntp -B package
+          mvn -Dmaven.repo.local=${{ env.GITHUB_WORKSPACE }}/deps -ntp -B package
 
       - name: Install CRDA
         uses: redhat-actions/openshift-tools-installer@v1
